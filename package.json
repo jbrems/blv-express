@@ -1,0 +1,23 @@
+{
+  "name": "blv-express",
+  "version": "1.0.0",
+  "description": "Express backend for the Blaasveld.net project",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbrems/blv-express.git"
+  },
+  "keywords": [],
+  "author": "Jonas Brems",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/jbrems/blv-express/issues"
+  },
+  "homepage": "https://github.com/jbrems/blv-express#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
