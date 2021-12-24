@@ -9,6 +9,8 @@ Express backend for the Blaasveld.net project
 1. Run `gcloud builds submit --tag gcr.io/blaasveld-net/blv-express` to upload the container image to Google Cloud.
 1. Start the container with `gcloud run deploy --image gcr.io/blaasveld-net/blv-express`. Choose `y` when asked to allow unauthenticated invocations.
 
+Or use `npm run deploy`.
+
 ## Stop the container on Google Cloud Run
 
 1. Go to [https://console.cloud.google.com/run?project=blaasveld-net](https://console.cloud.google.com/run?project=blaasveld-net).
