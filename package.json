@@ -6,10 +6,14 @@
   "type": "module",
   "scripts": {
     "start": "node .",
-    "lint": "eslint src --fix"
+    "lint": "eslint src --fix",
+    "deploy": "npm run deploy:build && npm run deploy:upload && npm run deploy:run",
+    "deploy:build": "docker build . --tag jbrems/blv-express",
+    "deploy:upload": "gcloud builds submit --tag gcr.io/blaasveld-net/blv-express",
+    "deploy:run": "gcloud run deploy --image gcr.io/blaasveld-net/blv-express blv-express --allow-unauthenticated"
   },
   "engines": {
-    "node": ">= 14.0.0"
+    "node": ">= 16.0.0"
   },
   "repository": {
     "type": "git",
