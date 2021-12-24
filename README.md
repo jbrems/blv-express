@@ -1,6 +1,15 @@
 # blv-express
 Express backend for the Blaasveld.net project
 
+## Run the project
+
+Use `npm start` to run the project locally on port 3000.
+
+## Run the project in a container
+
+1. Build the Docker image with `docker build . -t jbrems/blv-express`.
+1. Start the container with `docker run -p 3000:3000 jbrems/blv-express`.
+
 ## Deploy the container to Google Cloud Run
 
 1. Build the Docker image with `docker build . -t jbrems/blv-express`.

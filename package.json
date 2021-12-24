@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node .",
+    "start": "node --experimental-specifier-resolution=node .",
     "lint": "eslint src --fix",
     "deploy": "npm run deploy:build && npm run deploy:upload && npm run deploy:run",
     "deploy:build": "docker build . --tag jbrems/blv-express",
@@ -27,7 +27,8 @@
   },
   "homepage": "https://github.com/jbrems/blv-express#readme",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "node-fetch": "^3.1.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
