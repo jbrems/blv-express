@@ -1,11 +1,11 @@
-import { fetchTile } from './tile.service';
+import * as tileService from './tile.service';
 
 export async function getTile (req, res) {
   const { z, x, y } = req.params;
   
   try {
-    console.log(`Getting tile for ${z} ${x} ${y}`);
-    const tileStream = await fetchTile(z, x, y);
+    console.log(`Serving tile for ${z} ${x} ${y}`);
+    const tileStream = await tileService.getTile(z, x, y);
 
     res.set('Content-Type', 'image/png');
     tileStream.pipe(res);
