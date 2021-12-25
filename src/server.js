@@ -1,13 +1,17 @@
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
 import express from 'express';
 import { getTileRouter } from './tile/tile.routes';
 
 const server = express();
 
 server.get('/', (req, res) => {
-  res.send('Hello from the Blaasveld.net express server!');
+  const currentDir = dirname(fileURLToPath(import.meta.url));
+  fs.createReadStream(path.join(currentDir, 'index.html')).pipe(res);
 });
 
-server.use('/tile', getTileRouter());
+server.use('/tiles', getTileRouter());
 
 const port = process.env.PORT || 3000;
 
