@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cache control</title>
+</head>
+<body>
+  <h1>Cache control</h1>
+
+  <div id="cache-control-app"></div>
+
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script type="text/babel">
+    const App = function () {
+      const [tilesList, setTilesList] = React.useState([]);
+      const [tileToRender, setTileToRender] = React.useState('13-4091-2722.png');
+
+      React.useEffect(async () => {
+        const response = await fetch('/tiles/cache');
+        const tilesList = await response.json();
+        setTilesList(tilesList);
+      }, []);
+
+      const onTileClicked = (event) => {
+        const tile = event.target.innerText;
+        setTileToRender(tile);
+      };
+
+      return <div>
+        <TileList tiles={tilesList} onTileClicked={onTileClicked} />
+        <TileRender tile={tileToRender}/>  
+      </div>;
+    };
+
+    const TileList = function (props) {
+      return <>{ props.tiles.map(tile => <div key={tile} onClick={props.onTileClicked}>{ tile }</div>) }</>;
+    };
+
+    const TileRender = function (props) {
+      const src = props.tile.replace(/-/g, '/').replace(/\.png$/, '');
+
+      return <img src={src} alt={props.tile} />
+    };
+
+    const appContainer = document.getElementById('cache-control-app');
+    ReactDOM.render(<App/>, appContainer);
+  </script>
+</body>
+</html>

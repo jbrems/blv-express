@@ -2,7 +2,7 @@ import * as tileService from './tile.service';
 
 export async function getTile (req, res) {
   const { z, x, y } = req.params;
-  
+
   try {
     console.log(`Serving tile for ${z} ${x} ${y}`);
     const tileStream = await tileService.getTile(z, x, y);

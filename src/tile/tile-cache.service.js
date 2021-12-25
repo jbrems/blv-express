@@ -1,17 +1,16 @@
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path';
 import fs from 'fs';
+import { getPath } from '../shared/fs.utils';
 
 function getCacheDir () {
-  const currentDir = dirname(fileURLToPath(import.meta.url));
-  return path.join(currentDir, 'cache');
+  return getPath('/tile/cache');
 }
 
 function getFileName (z, x, y) {
   return `${z}-${x}-${y}.png`;
 }
 
-function getFilePath (z, x ,y) {
+function getFilePath (z, x, y) {
   return path.join(getCacheDir(), getFileName(z, x, y));
 }
 
@@ -28,4 +27,9 @@ export function storeTile (z, x, y, tile) {
   console.log(`Storing tile ${z} ${x} ${y} in cache`);
   const file = fs.createWriteStream(getFilePath(z, x, y));
   tile.pipe(file);
+}
+
+export async function listTiles () {
+  const fileNames = await fs.promises.readdir(getCacheDir());
+  return fileNames;
 }
