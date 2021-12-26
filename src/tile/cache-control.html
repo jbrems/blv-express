@@ -5,6 +5,39 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cache control</title>
+
+  <style>
+    body {
+      background: url('https://i2.wp.com/background4free.com/download/blue_aqua_turquoise_681502548.jpg?w=1600') repeat;
+    }
+
+    div.tile {
+      width: 50%;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #ffffffaa;
+      border: solid 1px black;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.25s ease-in-out, background-color 1s;
+    }
+
+    div.tile.selected {
+      transform: translateX(25px);
+      background: #ffffffdd;
+    }
+
+    div.tile-preview {
+      position: fixed;
+      top: calc(50vh - 128px - 35px);
+      right: calc(25vw - 128px - 25px);
+      padding: 25px;
+      padding-top: 0;
+      background: #ffffffdd;
+      border: solid 1px black;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
   <h1>Cache control</h1>
@@ -17,7 +50,7 @@
   <script type="text/babel">
     const App = function () {
       const [tilesList, setTilesList] = React.useState([]);
-      const [tileToRender, setTileToRender] = React.useState('13-4091-2722.png');
+      const [tileToRender, setTileToRender] = React.useState('');
 
       React.useEffect(async () => {
         const response = await fetch('/tiles/cache');
@@ -30,20 +63,34 @@
         setTileToRender(tile);
       };
 
-      return <div>
-        <TileList tiles={tilesList} onTileClicked={onTileClicked} />
+      return <div className="cache-control">
+        <TileList tiles={tilesList} onTileClicked={onTileClicked} selected={tileToRender}/>
         <TileRender tile={tileToRender}/>  
       </div>;
     };
 
     const TileList = function (props) {
-      return <>{ props.tiles.map(tile => <div key={tile} onClick={props.onTileClicked}>{ tile }</div>) }</>;
+      return <div className="tile-list">
+        <div className="tiles-status">{props.tiles.length} tiles have been cached</div>
+        { props.tiles.map(tile => <Tile key={tile} tile={tile} onClick={props.onTileClicked} selected={tile === props.selected} />) }
+      </div>;
+    };
+
+    const Tile = function (props) {
+      return <div onClick={props.onClick} className={`tile ${props.selected? 'selected' : ''}`}>
+        {props.tile}
+      </div>;
     };
 
     const TileRender = function (props) {
+      if (!props.tile) return null;
+
       const src = props.tile.replace(/-/g, '/').replace(/\.png$/, '');
 
-      return <img src={src} alt={props.tile} />
+      return <div className="tile-preview">
+        <h2>{src.replace(/\//g, ' ')}</h2>
+        <img src={src} alt={props.tile} />
+      </div>;
     };
 
     const appContainer = document.getElementById('cache-control-app');
