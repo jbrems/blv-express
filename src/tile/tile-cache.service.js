@@ -29,7 +29,22 @@ export function storeTile (z, x, y, tile) {
   tile.pipe(file);
 }
 
+export async function deleteTile (z, x, y) {
+  console.log(`Deleting tile ${z} ${x} ${y} from cache`);
+  return fs.promises.unlink(getFilePath(z, x, y));
+}
+
 export async function listTiles () {
   const fileNames = await fs.promises.readdir(getCacheDir());
   return fileNames;
+}
+
+export async function deleteTiles () {
+  console.log('Deleting all tiles from cache');
+  const fileNames = await fs.promises.readdir(getCacheDir());
+  return Promise.all(
+    fileNames.map((fileName) => {
+      fs.promises.unlink(path.join(getCacheDir(), fileName));
+    }),
+  );
 }
