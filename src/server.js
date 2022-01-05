@@ -1,13 +1,7 @@
-import fs from 'fs';
 import express from 'express';
-import { getPath } from './shared/fs.utils';
 import { getTileRouter } from './tile/tile.routes';
 
 const server = express();
-
-server.get('/', (req, res) => {
-  fs.createReadStream(getPath('/index.html')).pipe(res);
-});
 
 server.use('/tiles', getTileRouter());
 
