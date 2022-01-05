@@ -13,7 +13,7 @@ export function getTile (req, res) {
 }
 
 export async function deleteTile (req, res) {
-  const { z, x, y} = req.params;
+  const { z, x, y } = req.params;
 
   if (!tileCacheService.hasTile(z, x, y)) {
     res.sendStatus(404);

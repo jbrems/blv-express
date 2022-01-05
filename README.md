@@ -10,6 +10,8 @@ Use `npm start` to run the project locally on port 3000.
 1. Build the Docker image with `docker build . -t jbrems/blv-express`.
 1. Start the container with `docker run -p 3000:3000 jbrems/blv-express`.
 
+Or use `npm run docker`.
+
 ## Deploy the container to Google Cloud Run
 
 1. Make sure you are logged in to Google Cloud or login with `gcloud auth login`.

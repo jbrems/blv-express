@@ -44,7 +44,7 @@ export async function deleteTiles () {
   const fileNames = await fs.promises.readdir(getCacheDir());
   return Promise.all(
     fileNames.map((fileName) => {
-      fs.promises.unlink(path.join(getCacheDir(), fileName));
-    }),
+      return fs.promises.unlink(path.join(getCacheDir(), fileName));
+    })
   );
 }
